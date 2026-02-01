@@ -1,0 +1,36 @@
+# Système de Contrôle IoT via UDP Asynchrone (ESP-01S)
+
+> **Auteur :** KIANPI TASSOULA MAXIME OSIAS  
+> **Institution :** École Nationale Supérieure Polytechnique de Douala (5ème Année)  
+> **Version :** 1.0 (Release Finale)
+
+Ce projet est une introduction pratique aux concepts fondamentaux de l'**Internet des Objets (IoT)**. Il permet de transformer un module **ESP-01S** en un nœud réseau réactif capable de piloter une LED à distance via le protocole UDP.
+
+---
+
+## 1. Présentation du Projet
+Ce système établit une communication sans fil entre un smartphone (client) et un microcontrôleur (serveur). Contrairement aux méthodes classiques, nous utilisons ici l'**asynchronisme**, ce qui permet au module de rester disponible pour recevoir des ordres sans interrompre ses autres tâches.
+
+### Points clés techniques :
+* **Communication bidirectionnelle :** L'ESP reçoit des ordres et renvoie une confirmation d'état (Feedback) au smartphone.
+* **Routage de Télémétrie :** Utilisation de la fonction `writeTo()` pour garantir que le feedback atteint le terminal mobile en ciblant précisément son adresse IP et son port d'écoute.
+* **Signal de vie (Beacon) :** Le module émet un signal de présence sur le réseau toutes les 10 secondes pour confirmer qu'il est fonctionnel et connecté.
+
+---
+
+## 🛠 2. Matériel Requis
+* **Module ESP-01 ou ESP-01S**.
+* **Adaptateur USB-Série (FTDI/CH340)** avec un commutateur réglé sur **UART** pour le mode exécution.
+* **PC avec VS Code** et l'extension **PlatformIO**.
+* **Smartphone** équipé d'une application de terminal UDP (ex: *UDP TCP Server* ou *Packet Sender*).
+
+---
+
+## 3. Guide de Déploiement (Étape par étape)
+
+### Étape A : Configuration du code
+1. Ouvrez le projet sous PlatformIO.
+2. Dans le fichier `src/main.cpp`, configurez vos identifiants Wi-Fi :
+   ```cpp
+   const char * ssid = "votre_nom_wifi";
+   const char * password = "votre_mot_de_passe";
